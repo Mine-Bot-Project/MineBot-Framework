@@ -1,0 +1,26 @@
+{
+  "name": "mine-bot",
+  "version": "1.0.0",
+  "description": "Open source game based on Discord Platform.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mine-Bot-Project/Mine-Bot.git"
+  },
+  "keywords": [
+    "minebot",
+    "mine",
+    "bot",
+    "mining",
+    "miner"
+  ],
+  "author": "LmanTW, IceBrick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mine-Bot-Project/Mine-Bot/issues"
+  },
+  "homepage": "https://github.com/Mine-Bot-Project/Mine-Bot#readme"
+}
