@@ -1,6 +1,6 @@
 {
-  "name": "mine-bot",
-  "version": "1.0.0",
+  "name": "Mine Bot",
+  "version": "3.0.0",
   "description": "Open source game based on Discord Platform.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "mine",
     "bot",
     "mining",
-    "miner"
+    "miner",
+    "discord"
   ],
   "author": "LmanTW, IceBrick",
   "license": "MIT",
