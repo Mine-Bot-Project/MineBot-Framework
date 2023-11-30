@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mine-Bot-Project/Mine-Bot.git"
+    "url": "git+https://github.com/Mine-Bot-Project/MineBot-Framework.git"
   },
   "keywords": ["minebot", "mine", "bot", "mining", "miner", "discord"],
   "author": "LmanTW, IceBrick",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Mine-Bot-Project/Mine-Bot/issues"
+    "url": "https://github.com/Mine-Bot-Project/MineBot-Framework/issues"
   },
-  "homepage": "https://github.com/Mine-Bot-Project/Mine-Bot"
+  "homepage": "https://github.com/Mine-Bot-Project/MineBot-Framework"
 }
