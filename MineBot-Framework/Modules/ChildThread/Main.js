@@ -1,4 +1,4 @@
-const { ClusterClient, getInfo } = require('discord-hybrid-sharding');
+const { ClusterClient, getInfo } = require('discord-hybrid-sharding')
 const { Client, GatewayIntentBits } = require('discord.js')
 
 const client = new Client({

@@ -14,7 +14,7 @@ module.exports = () => {
     } catch (error) {
       missingPackages.push(item)
     }
-   })
+  })
 
   if (missingPackages > 0) throw new Error(`Missing Pacakge(s): ${missingPackages.join(', ')}`)
 }
