@@ -73,3 +73,14 @@ class Test {
   }
 }
 ```
+
+## 迴圈
+使用 i, item, index 作為迴圈的變數名稱。
+```js
+for (let i = 0; i < 100; i++) console.log(i)
+for (let item of [1, 2, 3, 4, 5]) console.log(item)
+
+[[1, 1.5], [2, 2.5], [3, 3.5], [4, 4.5], [5, 5.5]].forEach((item, index) => {
+  item.forEach((item2) => console.log(item2, index))
+})
+```
