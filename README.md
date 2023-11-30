@@ -1,4 +1,7 @@
-# Mine-Bot
-一個基於 Discord 的開源挖礦遊戲，一個最初由 LmanTW 獨立開發的專案。
+# MineBot Framework
+MineBot Framework 是一個開源的 Discord 挖礦遊戲框架，此框架最初是從 Mine Bot 演變而來。
 
-# 目標
+## 目錄
+* [目標](目標)
+
+## 目標
