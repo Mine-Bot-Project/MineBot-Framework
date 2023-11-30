@@ -1,5 +1,5 @@
 {
-  "name": "Mine Bot",
+  "name": "minebot-framework",
   "version": "0.1.0",
   "description": "Open source game based on Discord Platform.",
   "main": "index.js",
