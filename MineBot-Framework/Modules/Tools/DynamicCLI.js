@@ -68,22 +68,22 @@ class CLI {
     if (!Array.isArray(layout)) throw new Error('參數 layout 必須為一個 <array>')
     if (layout.filter((item) => item === 'pageContent').length > 1) throw new Error(`佈局中最多只能有一個 pagetContent`)
     
-		layout.forEach((item) => {
+    layout.forEach((item) => {
       if (item !== 'pageTab' && item !== 'pageContent' && item !== 'input' && item !== 'blank' && item !== 'background') throw new Error(`找不到佈局 ${item}`)
     })
 
     this.#layout = layout
     
-		return this
+    return this
   }
 
   //設定風格
   setStyle (style) {
     if (typeof style !== 'object') throw new Error('參數 style 必須為一個 <object>')
     
-		this.#style = style
+    this.#style = style
     
-		return this
+    return this
   }
 
   //添加頁面
@@ -91,13 +91,13 @@ class CLI {
     if (typeof name !== 'string') throw new Error(`參數 name 必須為一個 <string>`)
     if (typeof callback !== 'function') throw new Error(`參數 callback 必須為一個 <function>`)
     
-		this.#pages.forEach((item) => {
+    this.#pages.forEach((item) => {
       if (item.name === name) throw new Error(`已有名為 ${name} 的頁面`)
     })
     
-		this.#pages.push({ name, callback, hide: (hide === undefined) ? false : hide, selectY: 0, scrollY: 0 })
+    this.#pages.push({ name, callback, hide: (hide === undefined) ? false : hide, selectY: 0, scrollY: 0 })
     
-		return this
+    return this
   }
 
   //移除頁面
@@ -106,7 +106,7 @@ class CLI {
       if (this.#pages[i].name === name) {
         this.#pages.splice(i, 1)
         
-				return this
+        return this
       }
     }
 
@@ -118,16 +118,16 @@ class CLI {
     if (index >= this.#pages.length) index = 0
     else if (index < 0) index = this.#pages.length-1
     
-		this.#data.currentPage = index
+    this.#data.currentPage = index
     
-		return this
+    return this
   }
 
   //設定輸入
   setInput (string) {
     if (typeof string !== 'string') throw new Error('參數 string 必須為一個 <string>')
     
-		this.#data.input = string
+    this.#data.input = string
   }
 
   //聆聽事件
@@ -135,9 +135,9 @@ class CLI {
     if (typeof callback !== 'function') throw new Error('參數 <callback> 必須為一個 <function>')
     if (this.#data.events[name] === undefined) this.#data.events[name] = []
     
-		this.#data.events[name].push(callback)
+    this.#data.events[name].push(callback)
     
-		return this
+    return this
   }
 
   //呼叫事件
@@ -149,11 +149,11 @@ class CLI {
   #display () {
     let lines = []
     
-		this.#layout.forEach((item) => lines = lines.concat(this.#displayComponents(item)))
+    this.#layout.forEach((item) => lines = lines.concat(this.#displayComponents(item)))
     
-		while (lines.length < process.stdout.rows) lines.push('')
+    while (lines.length < process.stdout.rows) lines.push('')
     
-		lines.forEach((item, index) => {
+    lines.forEach((item, index) => {
       if (item.length > 0) {
         let analysis = []
         let currentColor = ''
@@ -165,7 +165,7 @@ class CLI {
                 currentColor = item.substring(i, end+1)
                 i = end
                 
-								break
+                break
               }
             }
           } else analysis.push({ string: item[i], color: currentColor })
@@ -174,7 +174,7 @@ class CLI {
         while (wcwidth(analysis.map((item) => {return item.string}).join('')) < process.stdout.columns) analysis.push({ string: ' ', color: '' })
         while (wcwidth(analysis.map((item) => {return item.string}).join('')) > process.stdout.columns) analysis.splice(analysis.length-1, 1)
         
-				lines[index] = `${this.#style.background}${analysis.map((item) => {return `${item.color}${item.string}`}).join('')}`
+        lines[index] = `${this.#style.background}${analysis.map((item) => {return `${item.color}${item.string}`}).join('')}`
       }
     })
 
@@ -198,7 +198,7 @@ class CLI {
       } else {
         let pageContent = this.#pages[this.#data.currentPage].callback()
         
-				if (!Array.isArray(pageContent)) throw new Error('參數 callback 必須為一個返回 <array> 的 <function>')
+        if (!Array.isArray(pageContent)) throw new Error('參數 callback 必須為一個返回 <array> 的 <function>')
         for (let i = 0; i < process.stdout.rows-(this.#layout.length-1); i++) {
           if (i+this.#pages[this.#data.currentPage].scrollY < pageContent.length) {
             if (i+this.#pages[this.#data.currentPage].scrollY === this.#pages[this.#data.currentPage].selectY) lines.push(`${this.style.selectBackground}>${this.style.selectFont}${i+this.#pages[this.#data.currentPage].scrollY+1}${BackgroundColor.reset}｜${pageContent[i+this.#pages[this.#data.currentPage].scrollY]}`)

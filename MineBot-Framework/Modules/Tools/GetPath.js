@@ -4,12 +4,12 @@ const os = require('os')
 module.exports = (basePath, move) => {
   let path = basePath.split(pathSymbol)
 
-	move.forEach((item) => {
+  move.forEach((item) => {
     if (item === '<') path.splice(path.length-1, 1)
-		else path.push(item)
-	})
+    else path.push(item)
+  })
 
-	return path.join(pathSymbol) 
+  return path.join(pathSymbol) 
 }
 
 let pathSymbol

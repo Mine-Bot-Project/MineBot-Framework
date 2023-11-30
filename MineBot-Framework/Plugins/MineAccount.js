@@ -1,12 +1,12 @@
 module.exports = class {
   static get id () {return 'MineAccount'}
-	static get path () {return __filename}
+  static get path () {return __filename}
 
-	static init () {}
+  static init () {}
 
-	static pages (core) {
-		return {
+  static pages (core) {
+    return {
       
-		}
-	}
+    }
+  }
 }
