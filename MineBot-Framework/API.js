@@ -2,21 +2,21 @@ require('./Modules/MainThread/CheckEnvironment')()
 
 //API
 module.exports = class {
-	#core
+  #core
 
-	constructor (path, options) {
+  constructor (path, options) {
     this.#core = new Core(path, options)
-	}
+  }
 
-	//Start The Bot
-	start () {
+  //Start The Bot
+  start () {
     this.#core.start()
-	}
+  }
 
-	//Add Plugin
-	addPlugin (Plugin) {
+  //Add Plugin
+  addPlugin (Plugin) {
     this.#core.plugin.addPlugin(Plugin)  
-	}
+  }
 }
 
 const Core = require('./Modules/MainThread/Core')
