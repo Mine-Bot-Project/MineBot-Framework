@@ -22,6 +22,7 @@
 
 ## 引號
 使用 `'` 而非 `"` 來定義 <string>。
+
 ✅ `'A string'`<br>
 ❌ `"A String"`
 
