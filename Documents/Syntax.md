@@ -6,6 +6,7 @@
 * [引號](#引號)
 * [排版](#排版)
 * [迴圈](#迴圈)
+* [註釋](#註釋)
 
 ## 命名
 使用 [小駝峰式命名法](https://zh.wikipedia.org/zh-tw/%E9%A7%9D%E5%B3%B0%E5%BC%8F%E5%A4%A7%E5%B0%8F%E5%AF%AB) 來命名變數, 函數，但在命名 `<Class>` 時使用 [大駝峰式命名法](https://zh.wikipedia.org/zh-tw/%E9%A7%9D%E5%B3%B0%E5%BC%8F%E5%A4%A7%E5%B0%8F%E5%AF%AB)。
@@ -83,4 +84,13 @@ for (let item of [1, 2, 3, 4, 5]) console.log(item)
 [[1, 1.5], [2, 2.5], [3, 3.5], [4, 4.5], [5, 5.5]].forEach((item, index) => {
   item.forEach((item2) => console.log(item2, index))
 })
+```
+
+## 註釋
+使用英文來進行註釋，且第一個字要為大寫。
+```js
+//Say Hello
+function sayHello () {
+  console.log('hello')
+}
 ```
