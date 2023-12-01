@@ -1,5 +1,5 @@
 # 語法風格規範
-MineBot-Framework 代碼庫的語法風格規範。
+MineBot Framework 代碼庫的語法風格規範。
 
 ## 目錄
 * [命名](#命名)
