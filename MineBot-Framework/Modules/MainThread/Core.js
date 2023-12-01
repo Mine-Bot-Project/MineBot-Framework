@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-//System Core
+//System Core (Main Thread)
 module.exports = class {
   #path
   #options
@@ -26,6 +26,8 @@ module.exports = class {
     this.Log.add('info', `Framework Version: ${info.version}`)
 
     fs.readdirSync(getPath(__dirname, ['<', '<', 'Plugins'])).forEach((item) => this.Plugin.addPlugin(require(getPath(__dirname, ['<', '<', 'Plugins', item]))))
+
+    this.checkFiles()
   }
 
   get path () {return this.#path}
@@ -43,6 +45,12 @@ module.exports = class {
 
       this.Log.add('complete', 'Successfully Started The Bot')
     } else throw new Error(`Could Not Start The Bot (State: ${this.#state})`)
+  }
+
+  //Check Files
+  checkFiles () {    
+    if (!fs.existsSync(getPath(this.#path, ['Info.json']))) fs.writeFileSync(getPath(this.#path, ['Info.json']), '{"servers":[],\n\n"defaultLanguage": "zh-TW"}')
+    if (!fs.existsSync(getPath(this.#path, ['Servers']))) fs.mkdirSync(getPath(this.#path, ['Servers']))
   }
 }
 

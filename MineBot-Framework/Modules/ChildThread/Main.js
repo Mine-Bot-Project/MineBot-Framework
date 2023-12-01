@@ -10,8 +10,14 @@ const client = new Client({
   ]
 })
 
-client.cluster = new ClusterClient(client) // initialize the Client, so we access the .broadcastEval()
+module.exports = client
+
+const Core = require('./Core')
+
+client.cluster = new ClusterClient(client)
+
+client.on('ready', () => {
+  Core.callFunction('Log.add', ['complete', 'hi'])
+})
 
 client.login(getInfo().DISCORD_TOKEN)
-
-client.cluster.request({ type: 'hi' })

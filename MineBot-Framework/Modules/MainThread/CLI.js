@@ -4,7 +4,7 @@ const wcwidth = require('wcwidth')
 module.exports = class {
   constructor (core) {
     this.CLI = new CLI()
-    core.Log = new Log()
+    core.Log = new Log(core)
 
     this.CLI.addPage('Logs', () => core.Log.getLogs())
   }
