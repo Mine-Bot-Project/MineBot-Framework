@@ -87,7 +87,7 @@ for (let item of [1, 2, 3, 4, 5]) console.log(item)
 ```
 
 ## 註釋
-使用英文來進行註釋，且第一個字要為大寫。
+使用英文來進行註釋，且每個單字的首個字母都要為大寫。
 ```js
 //Say Hello
 function sayHello () {
