@@ -19,7 +19,7 @@ MineBot Framework 使用多線程來分擔負載，不同的線程有不同的�
 > 建議您先了解 Node.js 中的 [Worker](https://nodejs.org/api/worker_threads.html)
 
 主線程:<br>
-命令行介面, 插件管理器, 集群管理器, Worker 管理器
+| 命令行介面, 插件管理器, 集群管理器, Worker 管理器
 
 子線程<br>
-頁面
+| 頁面
