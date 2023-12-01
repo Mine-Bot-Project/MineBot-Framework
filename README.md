@@ -9,5 +9,3 @@ MineBot Framework 是一個開源的 Discord 挖礦遊戲框架，此框架最�
 
 > [!NOTE]
 > 在更改前請先閱讀 [系統架構](https://github.com/Mine-Bot-Project/MineBot-Framework/blob/main/Documents/SystemStructure.md) 來了解 MineBot Framework 是如何運作的。
-
-3
