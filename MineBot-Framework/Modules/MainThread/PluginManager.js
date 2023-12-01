@@ -28,24 +28,13 @@ module.exports = class {
   //Load Plugins
   loadPlugins () {
     if (Object.keys(this.plugins).length > 0) {
-      this.#core.log.addSpace()
-
-      let state = this.#core.log.addState('white', 'Plugin Manager', `Load Plugins (${Object.keys(this.plugins)})`)
-      
-      this.#core.log.addSpace()
+      let state = this.#core.Log.addState('white', 'Plugin Manager', `Load Plugins (${Object.keys(this.plugins)})`)
 
       let start = performance.now()
-      let loadTime = {}
 
-      Object.keys(this.plugins).forEach((item) => {
-        loadTime[item] = performance.now()
+      Object.keys(this.plugins).forEach((item) => this.plugins[item].init(this.#core))
 
-        this.plugins[item].init(this.#core)
-
-        loadTime[item] = parseInt((performance.now()-loadTime[item])/60000).toFixed(1)
-      })
-
-      this.#core.log.finishState(state, 'green', `Successfully Loaded Plugins (${parseInt((performance.now()-start)/60000).toFixed(1)}s)\n\n${Object.keys(loadTime).map((item) => `${item}: ${loadTime[item]}s`).join('\n')}`)
+      this.#core.Log.finishState(state, 'green', `Successfully Loaded Plugins (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)}s)`)
     }
   }
 }

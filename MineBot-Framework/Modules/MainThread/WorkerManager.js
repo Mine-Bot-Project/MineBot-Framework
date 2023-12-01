@@ -5,6 +5,8 @@ module.exports = class {
   constructor (core) {
     this.#core = core
 
+    this.Event = new Event()
+
     this.workers = {}
     this.functions = {}
   }
@@ -15,7 +17,7 @@ module.exports = class {
 
     this.workers[id] = Worker
 
-    this.workers[id].on('message', this.#messageHandler)
+    this.Event.listen(this.workers[id], 'message', (msg) => this.#messageHandler(msg))
   }
 
   //Register Function (Functions that can be called from other worker thread)
@@ -27,8 +29,9 @@ module.exports = class {
 
   //Message Handler
   #messageHandler (msg) {
-    this.#core.log.add('info', JSON.stringify(msg))
+    this.#core.Log.add('info', JSON.stringify(msg))
   }
 }
 
 const generateID = require('../Tools/GenerateID')
+const Event = require('../Tools/Event')

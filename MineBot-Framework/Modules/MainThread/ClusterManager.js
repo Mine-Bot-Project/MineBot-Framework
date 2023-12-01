@@ -18,7 +18,7 @@ module.exports = class {
     })
 
     this.manager.on('clusterCreate', (cluster) => {
-      this.#core.workerManager.addWorker(cluster)
+      this.#core.WorkerManager.addWorker(cluster)
     })
 
     this.manager.spawn()

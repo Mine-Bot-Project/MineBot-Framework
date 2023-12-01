@@ -17,16 +17,15 @@ module.exports = class {
       clientID: undefined,
     }, options)
 
-    this.clusterManager = new ClusterManager(this)
-    this.workerManager = new WorkerManager(this)
+    this.ClusterManager = new ClusterManager(this)
+    this.WorkerManager = new WorkerManager(this)
 
-    this.plugin = new PluginManager(this)
-    this.cli = new CLI(this)
+    this.Plugin = new PluginManager(this)
+    this.CLI = new CLI(this)
 
-    this.log.add('info', `Framework Version: ${info.version}`)
-    this.log.addSpace()
+    this.Log.add('info', `Framework Version: ${info.version}`)
 
-    fs.readdirSync(getPath(__dirname, ['<', '<', 'Plugins'])).forEach((item) => this.plugin.addPlugin(require(getPath(__dirname, ['<', '<', 'Plugins', item]))))
+    fs.readdirSync(getPath(__dirname, ['<', '<', 'Plugins'])).forEach((item) => this.Plugin.addPlugin(require(getPath(__dirname, ['<', '<', 'Plugins', item]))))
   }
 
   get path () {return this.#path}
@@ -36,13 +35,13 @@ module.exports = class {
   //Start The Bot
   start () {
     if (this.#state === 'idle') {
-      this.log.add('running', 'Starting The Bot')
+      this.Log.add('running', 'Starting The Bot')
 
-      this.plugin.loadPlugins()
+      this.Plugin.loadPlugins()
 
-      this.clusterManager.spawn()
+      this.ClusterManager.spawn()
 
-      this.log.add('complete', 'Successfully Started The Bot')
+      this.Log.add('complete', 'Successfully Started The Bot')
     } else throw new Error(`Could Not Start The Bot (State: ${this.#state})`)
   }
 }

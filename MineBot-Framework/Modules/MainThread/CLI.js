@@ -3,10 +3,10 @@ const wcwidth = require('wcwidth')
 //Command Line Interface
 module.exports = class {
   constructor (core) {
-    this.cli = new CLI()
-    core.log = new Log()
+    this.CLI = new CLI()
+    core.Log = new Log()
 
-    this.cli.addPage('Logs', () => core.log.getLogs())
+    this.CLI.addPage('Logs', () => core.Log.getLogs())
   }
 }
 
