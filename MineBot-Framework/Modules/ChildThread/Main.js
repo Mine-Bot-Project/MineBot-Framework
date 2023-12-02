@@ -14,10 +14,14 @@ module.exports = client
 
 const Core = require('./Core')
 
-client.cluster = new ClusterClient(client)
+let start = (async () => {
+  client.cluster = new ClusterClient(client)
 
-client.on('ready', () => {
-  Core.callFunction('Log.add', ['complete', 'hi'])
-})
+  let state = await Core.callFunction('Log.addState', ['white', `Cluster ${client.cluster.id}`, 'Starting Cluster'])
 
-client.login(getInfo().DISCORD_TOKEN)
+  client.on('ready', () => {
+    Core.callFunction('Log.finishState', [state, 'green', 'Cluster Ready'])
+  })
+
+  client.login(getInfo().DISCORD_TOKEN)
+})()

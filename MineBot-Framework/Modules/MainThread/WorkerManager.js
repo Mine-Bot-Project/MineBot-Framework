@@ -33,7 +33,7 @@ module.exports = class {
       if (this.functions[msg.name] === undefined) msg.reply({ error: true, content: 'Function Not Found' })
       else {
         try {
-          msg.reply({ error: false, data: await this.functions[msg.name](...msg.data) })
+          msg.reply({ error: false, data: await this.functions[msg.name](...msg.parameters) })
         } catch (error) {
           msg.reply({ error: true, content: error.stack })
         }

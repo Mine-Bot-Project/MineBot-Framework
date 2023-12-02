@@ -15,6 +15,8 @@ module.exports = class {
     this.#options = Object.assign({
       token: undefined,
       clientID: undefined,
+
+      clusters: 1
     }, options)
 
     this.ClusterManager = new ClusterManager(this)
@@ -49,7 +51,7 @@ module.exports = class {
 
   //Check Files
   checkFiles () {    
-    if (!fs.existsSync(getPath(this.#path, ['Info.json']))) fs.writeFileSync(getPath(this.#path, ['Info.json']), '{"servers":[],\n\n"defaultLanguage": "zh-TW"}')
+    if (!fs.existsSync(getPath(this.#path, ['Info.json']))) fs.writeFileSync(getPath(this.#path, ['Info.json']), '{\n  "servers":[],\n\n  "defaultLanguage": "zh-TW"\n}')
     if (!fs.existsSync(getPath(this.#path, ['Servers']))) fs.mkdirSync(getPath(this.#path, ['Servers']))
   }
 }

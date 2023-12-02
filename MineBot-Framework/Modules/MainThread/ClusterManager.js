@@ -14,10 +14,9 @@ module.exports = class {
     this.manager = new ClusterManager(getPath(__dirname, ['<', 'ChildThread', 'Main.js']), {
       token: this.#core.options.token,
 
-      mode: 'worker',
-      clusterData: {
-        id: 'test'
-      }
+      totalClusters: this.#core.options.clusters,
+
+      mode: 'worker'
     })
 
     this.manager.on('clusterCreate', (cluster) => {
@@ -29,5 +28,3 @@ module.exports = class {
 }
 
 const getPath = require('../Tools/GetPath')
-
-const WorkerManager = require('./WorkerManager')
