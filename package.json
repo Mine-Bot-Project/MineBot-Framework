@@ -1,7 +1,7 @@
 {
   "name": "minebot-framework",
   "version": "0.1.0",
-  "description": "Open source game based on Discord Platform.",
+  "description": "Open Source Framework used to make Discord Bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
