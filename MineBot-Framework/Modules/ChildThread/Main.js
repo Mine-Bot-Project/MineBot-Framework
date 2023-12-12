@@ -17,6 +17,8 @@ const Core = require('./Core')
 let start = (async () => {
   client.cluster = new ClusterClient(client)
 
+  //Core.callFunction('Log.add', ['info'])
+
   let state = await Core.callFunction('Log.addState', ['white', `Cluster ${client.cluster.id}`, 'Starting Cluster'])
 
   client.on('ready', () => {

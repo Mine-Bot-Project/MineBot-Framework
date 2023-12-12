@@ -7,23 +7,33 @@ module.exports = class {
 
   constructor (core) {
     this.#core = core
-    this.functions = {}
   }
 
   //Spawn Clusters
   spawn () {
-    this.manager = new ClusterManager(path.resolve(__dirname, '../ChildThread/Main.js'), {
-      token: this.#core.options.token,
+    return new Promise(resolve => {
+      let state = this.#core.Log.addState('white', 'Cluster Manager', 'Starting Clusters')
+      
+      let start = performance.now()
 
-      totalClusters: this.#core.options.clusters,
+      this.manager = new ClusterManager(path.resolve(__dirname, '../ChildThread/Main.js'), {
+        token: this.#core.options.token,
 
-      mode: 'worker'
+        totalClusters: this.#core.options.clusters,
+
+        mode: 'worker'
+      })
+
+      let count = 0
+
+      this.manager.on('clusterCreate', (cluster) => {
+        this.#core.WorkerManager.addWorker(cluster)
+
+        count++
+        if (count >= this.manager.totalClusters) resolve()
+      })
+
+      this.manager.spawn()
     })
-
-    this.manager.on('clusterCreate', (cluster) => {
-      this.#core.WorkerManager.addWorker(cluster)
-    })
-
-    this.manager.spawn()
   }
 }

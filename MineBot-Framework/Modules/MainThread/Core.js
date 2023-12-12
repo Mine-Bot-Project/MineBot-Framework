@@ -20,6 +20,7 @@ module.exports = class {
       clusters: 1
     }, options)
 
+    this.SlashCommandManager = new SlashCommandManager(this)
     this.ClusterManager = new ClusterManager(this)
     this.WorkerManager = new WorkerManager(this)
 
@@ -38,13 +39,16 @@ module.exports = class {
   get state () {return this.#state}
 
   //Start The Bot
-  start () {
+  async start () {
     if (this.#state === 'idle') {
       this.Log.add('running', 'Starting The Bot')
 
       this.Plugin.loadPlugins()
 
-      this.ClusterManager.spawn()
+      await Promise.all([
+        this.SlashCommandManager.loadCommands(),
+        this.ClusterManager.spawn()
+      ])
 
       this.Log.add('complete', 'Successfully Started The Bot')
     } else throw new Error(`Could Not Start The Bot (State: ${this.#state})`)
@@ -57,6 +61,7 @@ module.exports = class {
   }
 }
 
+const SlashCommandManager = require('./SlashCommandManager')
 const ClusterManager = require('./ClusterManager')
 const PluginManager = require('./PluginManager')
 const WorkerManager = require('./WorkerManager')
