@@ -1,17 +1,18 @@
+const path = require('path')
 const fs = require('fs')
 
 //System Core (Main Thread)
 module.exports = class {
-  #path
+  #dataPath
   #options
 
   #state = 'idle'
 
-  constructor (path, options) {
-    if (!fs.existsSync(path)) throw new Error(`Directory Not Found ${path}`)
-    if (!fs.statSync(path).isDirectory()) throw new Error(`${path} Is Not A Directory`)
+  constructor (dataPath, options) {
+    if (!fs.existsSync(dataPath)) throw new Error(`Directory Not Found ${dataPath}`)
+    if (!fs.statSync(dataPath).isDirectory()) throw new Error(`${dataPath} Is Not A Directory`)
 
-    this.#path = path
+    this.#dataPath = dataPath
     this.#options = Object.assign({
       token: undefined,
       clientID: undefined,
@@ -27,12 +28,12 @@ module.exports = class {
 
     this.Log.add('info', `Framework Version: ${info.version}`)
 
-    fs.readdirSync(getPath(__dirname, ['<', '<', 'Plugins'])).forEach((item) => this.Plugin.addPlugin(require(getPath(__dirname, ['<', '<', 'Plugins', item]))))
+    fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((item) => this.Plugin.addPlugin(require(path.resolve(__dirname, `../../Plugins/${item}`))))
 
     this.checkFiles()
   }
 
-  get path () {return this.#path}
+  get dataPath () {return this.#dataPath}
   get options () {return this.#options}
   get state () {return this.#state}
 
@@ -51,12 +52,10 @@ module.exports = class {
 
   //Check Files
   checkFiles () {    
-    if (!fs.existsSync(getPath(this.#path, ['Info.json']))) fs.writeFileSync(getPath(this.#path, ['Info.json']), '{\n  "servers":[],\n\n  "defaultLanguage": "zh-TW"\n}')
-    if (!fs.existsSync(getPath(this.#path, ['Servers']))) fs.mkdirSync(getPath(this.#path, ['Servers']))
+    if (!fs.existsSync(path.resolve(this.#dataPath, 'Info.json'))) fs.writeFileSync(path.resolve(this.#dataPath, 'Info.json'), '{\n  "servers":[],\n\n  "defaultLanguage": "zh-TW"\n}')
+    if (!fs.existsSync(path.resolve(this.#dataPath, 'Servers'))) fs.mkdirSync(path.resolve(this.#dataPath, 'Servers'))
   }
 }
-
-const getPath = require('../Tools/GetPath')
 
 const ClusterManager = require('./ClusterManager')
 const PluginManager = require('./PluginManager')

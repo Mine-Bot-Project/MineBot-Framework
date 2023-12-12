@@ -1,4 +1,5 @@
 const { ClusterManager } = require('discord-hybrid-sharding')
+const path = require('path')
 
 //Cluster
 module.exports = class {
@@ -11,7 +12,7 @@ module.exports = class {
 
   //Spawn Clusters
   spawn () {
-    this.manager = new ClusterManager(getPath(__dirname, ['<', 'ChildThread', 'Main.js']), {
+    this.manager = new ClusterManager(path.resolve(__dirname, '../ChildThread/Main.js'), {
       token: this.#core.options.token,
 
       totalClusters: this.#core.options.clusters,
@@ -26,5 +27,3 @@ module.exports = class {
     this.manager.spawn()
   }
 }
-
-const getPath = require('../Tools/GetPath')

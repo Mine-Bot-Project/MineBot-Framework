@@ -16,5 +16,7 @@ module.exports = () => {
     }
   })
 
-  if (missingPackages > 0) throw new Error(`Missing Pacakge(s): ${missingPackages.join(', ')}`)
+  if (missingPackages.length > 1) throw new Error(`Missing Packages: ${missingPackages.join(', ')}`)
+  else if (missingPackages.length > 0) throw new Error(`Missing Package: ${missingPackages[0]}`)
+
 }
