@@ -2,8 +2,10 @@ const path = require('path')
 
 const MineBot = require('../../MineBot-Framework/API')
 
+require('dotenv').config()
+
 let bot = new MineBot(path.resolve(__dirname, 'Data'), {
-  token: 'MTE3NDkyNDIyMDY1NzA0OTYzMA.GqRegt.zLFkXYzGLWUxyQWUmXX1h3_djCI8YIYUzYAceI',
+  token: process.env.TOKEN,
   clientID: '1174924220657049630',
   
   clusters: 2

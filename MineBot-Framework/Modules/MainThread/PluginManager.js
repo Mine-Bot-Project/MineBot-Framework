@@ -12,7 +12,7 @@ module.exports = class {
   addPlugin (Plugin) {
     if (Plugin.id === undefined || Plugin.path === undefined) throw new Error('Could Not Verify Plugin')
     if (Plugin.init !== undefined && typeof Plugin.init !== 'function') throw new Error(`Failed To Initialize Plugin: ${Plugin.id} (Not A Function)`)
-    if (typeof Plugin.pages !== 'function') throw new Error('Failed To Register Plugin Pages')
+    if (typeof Plugin.content !== 'function') throw new Error('Failed To Register Plugin Content')
 
     if (this.plugins[Plugin.id] === undefined) this.plugins[Plugin.id] = Plugin
     else throw new Error(`Plugin Is Already Added: ${Plugin.id}`)

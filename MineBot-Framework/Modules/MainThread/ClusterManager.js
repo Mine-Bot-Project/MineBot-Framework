@@ -1,7 +1,7 @@
 const { ClusterManager } = require('discord-hybrid-sharding')
 const path = require('path')
 
-//Cluster
+//Cluster Manager
 module.exports = class {
   #core
 

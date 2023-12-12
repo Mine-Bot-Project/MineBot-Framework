@@ -40,6 +40,8 @@ module.exports = class {
   add (type, content) {
     if (this.logTypes[type] === undefined) throw new Error(`Unknown Log Type: ${type}`)
 
+    if (typeof content !== 'string') content = JSON.stringify(content, null, 2)
+
     let lines = content.split('\n')
     
     if (lines.length > 1) {
