@@ -8,7 +8,7 @@ let bot = new MineBot(path.resolve(__dirname, 'Data'), {
   token: process.env.TOKEN,
   clientID: '1174924220657049630',
   
-  clusters: 1
+  clusters: 2
 })
 
 bot.start()

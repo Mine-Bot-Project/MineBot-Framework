@@ -1,9 +1,9 @@
 //Plugin Manager
 module.exports = class {
-  #core
+  #Core
 
-  constructor (core) {
-    this.#core = core
+  constructor (Core) {
+    this.#Core = Core
 
     this.plugins = {}
   }
@@ -28,13 +28,13 @@ module.exports = class {
   //Load Plugins
   loadPlugins () {
     if (Object.keys(this.plugins).length > 0) {
-      let state = this.#core.Log.addState('white', 'Plugin Manager', `Load Plugins (${Object.keys(this.plugins)})`)
+      let state = this.#Core.Log.addState('white', 'Plugin Manager', `Load Plugins (${Object.keys(this.plugins)})`)
 
       let start = performance.now()
 
-      Object.keys(this.plugins).forEach((item) => this.plugins[item].init(this.#core))
+      Object.keys(this.plugins).forEach((item) => this.plugins[item].init(this.#Core))
 
-      this.#core.Log.finishState(state, 'green', `Successfully Loaded Plugins (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)}s)`)
+      this.#Core.Log.finishState(state, 'green', `Successfully Loaded Plugins (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)}s)`)
     }
   }
 }

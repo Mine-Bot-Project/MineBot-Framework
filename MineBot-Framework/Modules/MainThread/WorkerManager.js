@@ -1,9 +1,9 @@
 //Worker Manager
 module.exports = class {
-  #core
+  #Core
 
-  constructor (core) {
-    this.#core = core
+  constructor (Core) {
+    this.#Core = Core
 
     this.Event = new Event()
 

@@ -2,12 +2,12 @@ const { REST, Routes } = require('discord.js');
 
 //Slash Command Manager
 module.exports = class {
-  #core
+  #Core
 
   #commands = []
 
-  constructor (core) {
-    this.#core = core
+  constructor (Core) {
+    this.#Core = Core
   }
 
   //Add Command
@@ -83,18 +83,18 @@ module.exports = class {
 
   //Load Commands
   async loadCommands () {
-    let state = this.#core.Log.addState('white', 'Slash Command Manager', `Loading Commands (${this.#commands.length})`)
+    let state = this.#Core.Log.addState('white', 'Slash Command Manager', `Loading Commands (${this.#commands.length})`)
 
     let start = performance.now()
 
-    const rest = new REST().setToken(this.#core.options.token)
+    const rest = new REST().setToken(this.#Core.options.token)
 
     const data = await rest.put(
-			Routes.applicationCommands(this.#core.options.clientID),
+			Routes.applicationCommands(this.#Core.options.clientID),
 			{ body: this.#commands }
 		)
 
-    this.#core.Log.finishState(state, 'green', `Successfully Loaded ${data.length} Commands (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)})`)
+    this.#Core.Log.finishState(state, 'green', `Successfully Loaded ${data.length} Commands (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)})`)
   }
 
   #checkCommandName (name) {

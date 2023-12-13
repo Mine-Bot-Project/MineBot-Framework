@@ -6,7 +6,7 @@ module.exports = class {
   static get path () {return __filename}
 
   static init (core) {
-
+    core.Slas
   }
 
   static content (core) {
