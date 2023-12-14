@@ -20,6 +20,7 @@ module.exports = class {
       clusters: 1
     }, options)
 
+    this.TranslationManager = new TranslationManager(this)
     this.SlashCommandManager = new SlashCommandManager(this)
     this.ClusterManager = new ClusterManager(this)
     this.WorkerManager = new WorkerManager(this)
@@ -45,6 +46,7 @@ module.exports = class {
 
       this.Plugin.loadPlugins()
 
+      this.TranslationManager.check()
       await Promise.all([
         this.SlashCommandManager.loadCommands(),
         this.ClusterManager.spawn()
@@ -56,12 +58,13 @@ module.exports = class {
 
   //Check Files
   checkFiles () {    
-    if (!fs.existsSync(path.resolve(this.#dataPath, 'Info.json'))) fs.writeFileSync(path.resolve(this.#dataPath, 'Info.json'), '{\n  "servers":[],\n\n  "defaultLanguage": "zh-TW"\n}')
+    if (!fs.existsSync(path.resolve(this.#dataPath, 'Info.json'))) fs.writeFileSync(path.resolve(this.#dataPath, 'Info.json'), JSON.stringify({ servers: [], defaultLanguage: 'zh-TW' }, null, 2))
     if (!fs.existsSync(path.resolve(this.#dataPath, 'Servers'))) fs.mkdirSync(path.resolve(this.#dataPath, 'Servers'))
   }
 }
 
 const SlashCommandManager = require('./SlashCommandManager')
+const TranslationManager = require('./TranslationManager')
 const ClusterManager = require('./ClusterManager')
 const PluginManager = require('./PluginManager')
 const WorkerManager = require('./WorkerManager')
