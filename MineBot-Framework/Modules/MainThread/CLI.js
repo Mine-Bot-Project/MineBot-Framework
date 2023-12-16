@@ -1,13 +1,14 @@
 //Command Line Interface
 module.exports = class {
   constructor (Core) {
-    this.CLI = new CLI()
+    this.DynamicCLI = new DynamicCliBuilder()
     Core.Log = new Log(Core)
 
-    this.CLI.addPage('Logs', () => Core.Log.getLogs())
+    this.DynamicCLI.addPage('Logs', 'Logs', () => Core.Log.getLogs())
+    this.DynamicCLI.addPage('Commands', 'Commands', () => [])
   }
 }
 
-const { CLI } = require('../Tools/DynamicCLI')
+const { DynamicCliBuilder, BackgroundColor } = require('../Tools/DynamicCliBuilder')
 
 const Log = require('./Log')

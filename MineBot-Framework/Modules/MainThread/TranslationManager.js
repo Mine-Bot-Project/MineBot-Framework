@@ -7,20 +7,31 @@ module.exports = class {
 
   constructor (Core) {
     this.#Core = Core
+
+    this.langauges = []
   }
 
-  //Check Translations
-  check () {
-    let state = this.#Core.Log.addState('white', `Translation Manager`, `Checking Translations (${fs.readdirSync(path.resolve(__dirname, '../../Data/Languages')).length})`)
+  //Load Translations
+  load () {
+    let state = this.#Core.Log.addState('white', `Translation Manager`, `Loading Translations (${fs.readdirSync(path.resolve(__dirname, '../../data/languages')).length})`)
 
     let start = performance.now()
 
-    fs.readdirSync(path.resolve(__dirname, '../../Data/Languages')).forEach((item) => {
-      if (path.parse(item).ext !== '.json') throw new Error(`Translation File Must Be A ".json" File (${path.parse(item).name})`) 
+    this.langauges = []
 
-      this.#Core.Log.add('info', item)
+    fs.readdirSync(path.resolve(__dirname, '../../Data/Languages')).forEach((item) => {
+      if (path.parse(item).ext !== '.json') this.#Core.Log.add('warn', `<${item}> Translation File Must Be A JSON File`)
+      else {
+        try {
+          JSON.parse(fs.readFileSync(path.resolve(__dirname, `../../Data/Languages/${item}`), 'utf8'))
+
+          this.langauges.push(path.parse(item).name)
+        } catch (error) {
+          this.#Core.Log.add('warn', `<${item}> Failed To Parse JSON File`)
+        }
+      }
     })
 
-    this.#Core.Log.finishState(state, 'green', `Translations Check Complete (${parseInt((performance.now()-start)/60000).toFixed(1)}s)`)
+    this.#Core.Log.finishState(state, 'green', `Successfully Loaded Translations (${parseInt((performance.now()-start)/60000).toFixed(1)}s)\n(Loaded): ${this.langauges.length} (Skiped): ${fs.readdirSync(path.resolve(__dirname, '../../Data/Languages')).length-this.langauges.length}`)
   }
 }

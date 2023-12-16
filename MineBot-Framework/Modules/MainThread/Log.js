@@ -146,5 +146,5 @@ module.exports = class {
   }
 }
 
-const { FontColor } = require('../Tools/DynamicCLI')
+const { FontColor } = require('../Tools/DynamicCliBuilder')
 const generateID = require('../Tools/GenerateID')

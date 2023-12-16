@@ -46,7 +46,7 @@ module.exports = class {
 
       this.Plugin.loadPlugins()
 
-      this.TranslationManager.check()
+      this.TranslationManager.load()
       await Promise.all([
         this.SlashCommandManager.loadCommands(),
         this.ClusterManager.spawn()
