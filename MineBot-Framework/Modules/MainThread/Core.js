@@ -7,6 +7,7 @@ module.exports = class {
   #options
 
   #state = 'idle'
+  #info
 
   constructor (dataPath, options) {
     if (!fs.existsSync(dataPath)) throw new Error(`Directory Not Found ${dataPath}`)
@@ -20,6 +21,10 @@ module.exports = class {
       clusters: 1
     }, options)
 
+    this.checkFiles()
+
+    this.#info = JSON.parse(fs.readFileSync(path.resolve(dataPath, 'Info.json')))
+
     this.TranslationManager = new TranslationManager(this)
     this.SlashCommandManager = new SlashCommandManager(this)
     this.ClusterManager = new ClusterManager(this)
@@ -31,13 +36,12 @@ module.exports = class {
     this.Log.add('info', `Framework Version: ${info.version}`)
 
     fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((item) => this.Plugin.addPlugin(require(path.resolve(__dirname, `../../Plugins/${item}`))))
-
-    this.checkFiles()
   }
 
   get dataPath () {return this.#dataPath}
   get options () {return this.#options}
   get state () {return this.#state}
+  get info () {return this.#info}
 
   //Start The Bot
   async start () {
