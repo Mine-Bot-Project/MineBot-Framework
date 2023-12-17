@@ -1,6 +1,6 @@
 const os = require('os')
 
-//Check Environment
+// Check Environment
 module.exports = () => {
   if (!['linux', 'darwin', 'win32'].includes(os.platform())) throw new Error(`Unsupported Platform: ${core}`)
 

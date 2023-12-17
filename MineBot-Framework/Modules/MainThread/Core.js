@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-//System Core (Main Thread)
+// System Core (Main Thread)
 module.exports = class {
   #dataPath
   #options
@@ -43,7 +43,7 @@ module.exports = class {
   get state () {return this.#state}
   get info () {return this.#info}
 
-  //Start The Bot
+  // Start The Bot
   async start () {
     if (this.#state === 'idle') {
       this.Log.add('running', 'Starting The Bot')
@@ -60,7 +60,7 @@ module.exports = class {
     } else throw new Error(`Could Not Start The Bot (State: ${this.#state})`)
   }
 
-  //Check Files
+  // Check Files
   checkFiles () {    
     if (!fs.existsSync(path.resolve(this.#dataPath, 'Info.json'))) fs.writeFileSync(path.resolve(this.#dataPath, 'Info.json'), JSON.stringify({ servers: [], defaultLanguage: 'zh-TW' }, null, 2))
     if (!fs.existsSync(path.resolve(this.#dataPath, 'Servers'))) fs.mkdirSync(path.resolve(this.#dataPath, 'Servers'))

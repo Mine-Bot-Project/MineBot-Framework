@@ -1,6 +1,6 @@
 const { REST, Routes } = require('discord.js');
 
-//Slash Command Manager
+// Slash Command Manager
 module.exports = class {
   #Core
 
@@ -10,7 +10,7 @@ module.exports = class {
     this.#Core = Core
   }
 
-  //Add Command
+  // Add Command
   addCommand (options) {
     options = mergeObject({
       name: undefined,
@@ -74,14 +74,14 @@ module.exports = class {
     })
   }
 
-  //Remove Command
+  // Remove Command
   removeCommand (name) {
     for (let i = this.#commands.length-1; i >= 0; i--) {
       if (this.#commands[i].name === name) this.#commands.splice(i, 1)
     }
   }
 
-  //Load Commands
+  // Load Commands
   async loadCommands () {
     let state = this.#Core.Log.addState('white', 'Slash Command Manager', `Loading Commands (${this.#commands.length})`)
 

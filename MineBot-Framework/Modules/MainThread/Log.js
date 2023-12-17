@@ -36,7 +36,7 @@ module.exports = class {
     }
   }
 
-  //Add Log
+  // Add Log
   add (type, content) {
     if (this.logTypes[type] === undefined) throw new Error(`Unknown Log Type: ${type}`)
 
@@ -54,12 +54,12 @@ module.exports = class {
     } else this.lines.splice(0, 0, `${FontColor[this.logTypes[type].color]}[${this.logTypes[type].title}]: ${content}`)
   }
 
-  //Add Space (Empty line)
+  // Add Space (Empty line)
   addSpace () {
     this.lines.splice(0, 0, '')
   }
 
-  //Add State
+  // Add State
   addState (color, title, content, parentID) {
     if (parentID === undefined) {
       let id = generateID(5, Object.keys(this.states))
@@ -79,7 +79,7 @@ module.exports = class {
     }
   }
 
-  //Change State
+  // Change State
   changeState (id, color, content) {
     if (id.includes('.')) {
       id = id.split('.')
@@ -97,7 +97,7 @@ module.exports = class {
     }
   }
 
-  //Finish State
+  // Finish State
   finishState (id, color, content) {
     if (id.includes('.')) {
       id = id.split('.')
@@ -124,7 +124,7 @@ module.exports = class {
     }
   }
 
-  //Get Logs
+  // Get Logs
   getLogs () {
     if (this.lines.length > 100) this.data.splice(100, this.lines.length-100)
 

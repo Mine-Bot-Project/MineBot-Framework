@@ -1,4 +1,4 @@
-//Merge Object
+// Merge Object
 module.exports = (target, object) => {
   Object.keys(object).forEach((item) => {
     if (typeof object[item] === 'object') {

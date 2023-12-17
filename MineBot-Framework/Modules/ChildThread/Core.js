@@ -1,6 +1,6 @@
-//System Core (Child Thread)
+// System Core (Child Thread)
 module.exports = class {
-  //Call Function (Call function in Main Thread)
+  // Call Function (Call function in Main Thread)
   static async callFunction (name, parameters) {
     let response = await client.cluster.request({ type: 'callFunction', name, parameters })
 

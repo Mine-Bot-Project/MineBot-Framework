@@ -1,4 +1,4 @@
-//Worker Manager
+// Worker Manager
 module.exports = class {
   #Core
 
@@ -11,7 +11,7 @@ module.exports = class {
     this.functions = {}
   }
 
-  //Add Worker
+  // Add Worker
   addWorker (Worker) {
     let id = generateID(5, Object.keys(this.workers))
 
@@ -20,14 +20,14 @@ module.exports = class {
     this.Event.listen(this.workers[id], 'message', (msg) => this.#messageHandler(msg))
   }
 
-  //Register Function (Functions that can be called from other worker thread)
+  // Register Function (Functions that can be called from other worker thread)
   registerFunction (name, callback) {
     if (this.functions[name] !== undefined) throw new Error(`Function Name Is Already Used: ${callback}`)
   
     this.functions[name] = callback
   }
 
-  //Message Handler
+  // Message Handler
   async #messageHandler (msg) {
     if (msg.type === 'callFunction') {
       if (this.functions[msg.name] === undefined) msg.reply({ error: true, content: 'Function Not Found' })

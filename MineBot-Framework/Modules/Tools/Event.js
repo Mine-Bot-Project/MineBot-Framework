@@ -6,14 +6,14 @@ module.exports = class {
     
   }
 
-  //Listen
+  // Listen To Event
   listen (target, name, callback) {
     target.on(name, callback)
 
     this.#events.push({ target, name, callback })
   }
 
-  //Clear
+  // Clear
   clear (target, name) {
     for (let i = this.#events.length-1; i >= 0; i--) {
       if (target === this.#events[i].target || (name === undefined || name === this.#events[i].name)) {

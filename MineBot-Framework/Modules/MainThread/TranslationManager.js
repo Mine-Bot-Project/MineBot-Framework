@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-//Translation Manger
+// Translation Manger
 module.exports = class {
   #Core
 
@@ -12,7 +12,7 @@ module.exports = class {
     this.languages = []
   }
 
-  //Load Translations
+  // Load Translations
   load () {
     let state = this.#Core.Log.addState('white', `Translation Manager`, `Loading Translations (${fs.readdirSync(path.resolve(__dirname, '../../data/languages')).length})`)
 

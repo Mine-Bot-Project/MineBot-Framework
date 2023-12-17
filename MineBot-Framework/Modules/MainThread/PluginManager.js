@@ -1,4 +1,4 @@
-//Plugin Manager
+// Plugin Manager
 module.exports = class {
   #Core
 
@@ -8,7 +8,7 @@ module.exports = class {
     this.plugins = {}
   }
 
-  //Add Plugin
+  // Add Plugin
   addPlugin (Plugin) {
     if (Plugin.id === undefined || Plugin.path === undefined) throw new Error('Could Not Verify Plugin')
     if (Plugin.init !== undefined && typeof Plugin.init !== 'function') throw new Error(`Failed To Initialize Plugin: ${Plugin.id} (Not A Function)`)
@@ -18,14 +18,14 @@ module.exports = class {
     else throw new Error(`Plugin Is Already Added: ${Plugin.id}`)
   }
 
-  //Remove Plugin
+  // Remove Plugin
   removePlugin (id) {
     if (this.plugins[id] === undefined) throw new Error(`Plugin Not Found: ${id}`)
 
     delete this.plugins[id]
   }
 
-  //Load Plugins
+  // Load Plugins
   loadPlugins () {
     if (Object.keys(this.plugins).length > 0) {
       let state = this.#Core.Log.addState('white', 'Plugin Manager', `Load Plugins (${Object.keys(this.plugins)})`)

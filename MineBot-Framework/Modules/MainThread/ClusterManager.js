@@ -1,7 +1,7 @@
 const { ClusterManager } = require('discord-hybrid-sharding')
 const path = require('path')
 
-//Cluster Manager
+// Cluster Manager
 module.exports = class {
   #Core
 
@@ -11,7 +11,7 @@ module.exports = class {
     this.Event = new Event()
   }
 
-  //Spawn Clusters
+  // Spawn Clusters
   spawn () {
     return new Promise(async (resolve) => {
       let state = this.#Core.Log.addState('white', 'Cluster Manager', 'Starting Clusters')
