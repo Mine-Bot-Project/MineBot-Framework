@@ -15,7 +15,7 @@ module.exports = class {
 
   //Add Plugin
   addPlugin (Plugin) {
-    this.#core.plugin.addPlugin(Plugin)  
+    this.#core.PluginManager.addPlugin(Plugin)  
   }
 }
 

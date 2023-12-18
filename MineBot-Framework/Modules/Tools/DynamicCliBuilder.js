@@ -40,8 +40,8 @@ class DynamicCliBuilder {
   }
 
   get pages () {return Object.keys(this.#pages)}
-  get input () {this.#data.input}
-  get currentPage () {this.#data.currentPage}
+  get input () {return this.#data.input}
+  get currentPage () {return this.#data.currentPage}
 
   set input (data) {this.#data.input = data}
 
@@ -52,11 +52,15 @@ class DynamicCliBuilder {
     })
 
     this.#layout = layout
+
+    return this
   }
 
   // Set Style
   setStyle (style) {
     this.#style = Object.assign(this.#style, style)
+
+    return this
   }
 
   // Add Page
@@ -78,6 +82,15 @@ class DynamicCliBuilder {
     if (this.#data.currentPage === id) this.#data.currentPage = Object.keys(this.#pages)[0]
 
     delete this.#pages[id]
+
+    return this
+  }
+
+  // Switch Page
+  switchPage(id) {
+    if (this.#pages[id] === undefined) throw new Error(`Page Not Found: ${id}`)
+
+    this.#data.currentPage = id
   }
 
   // Listen To Event
@@ -85,6 +98,8 @@ class DynamicCliBuilder {
     if (this.#events[name] === undefined) this.#events[name] = []
 
     this.#events[name].push(callback)
+
+    return this
   }
 
   #callEvent (name, data) {
@@ -102,8 +117,8 @@ class DynamicCliBuilder {
       let planText = planTextData.map((item) => item.text).join('')
 
       if (wcwidth(planText) < process.stdout.columns) planTextData.push({ color: this.#style.background, text: ' '.repeat(process.stdout.columns-wcwidth(planText)) })
-      else if (wcwidth(planText) > process.stdout.columns) {
-        while (wcwidth(planText) > process.stdout.columns) {
+      else if (wcwidth(planText)+(getNewlineAmount(planText)*2) > process.stdout.columns) {
+        while (wcwidth(planText)+(getNewlineAmount(planText)*2) > process.stdout.columns) {
           planTextData = planTextData.slice(0, planTextData.length-1)
           planText = planText.substring(0, planText.length-1)
         }
@@ -112,7 +127,7 @@ class DynamicCliBuilder {
       return `${this.#style.background}${planTextData.map((item2) => (item2.color === undefined) ? item2.text : `${item2.color}${item2.text}`).join('')}`
     })
 
-    process.stdout.write(`\x1B[2J\x1B[3J\x1B[H\x1Bc${lines.join('\n')}\n${FontColor.reset}`)
+    process.stdout.write(`\x1B[2J\x1B[3J\x1B[H\x1Bc${lines.map((item) => item.replaceAll('\n', '\\n')).join('\n')}\n${FontColor.reset}`)
   }
 
   // Display Component
@@ -207,17 +222,21 @@ class DynamicCliBuilder {
         this.#callEvent('switchPage', this.#data.currentPage)
       }
     } else if (data.toString('hex') === keys.enter) {
-      this.#callEvent('enter', this.#data.input)
+      if (this.#data.input === '') {
+        if (this.#pages[this.#data.currentPage] !== undefined) this.#callEvent('select', { page: this.#data.currentPage, cursorY: this.#pages[this.#data.currentPage].cursorY })
+      } else {
+        this.#callEvent('enter', this.#data.input)
 
-      this.#data.input = ''
+        this.#data.input = ''
+      }
     } else if (data.toString('hex') === keys.backspace) {
-      this.#callEvent('input', data)
- 
       if (this.#data.input.length > 0) this.#data.input = this.#data.input.substring(0, this.#data.input.length-1)
-    } else {
-      this.#callEvent('input', data)
 
+      this.#callEvent('input', data)
+    } else {
       this.#data.input+=data.toString().replaceAll('\n')
+
+      this.#callEvent('input', data)
     }
   }
 }
@@ -231,13 +250,20 @@ function sperateColorCode (text) {
     if (text[i] === '\x1b') {
       if (color === undefined) color = ''
 
-      while (text[i] !== 'm') {
+      let oldIndex = i
+
+      while (text[i] !== 'm' && i < text.length) {
         color+=text[i]
 
         i++
       }
 
-      color+='m'
+      if (text[i] === 'm') color+='m'
+      else {
+        i = oldIndex
+
+        color
+      }
     } else {
       if (color === undefined) letters.push({ text: text[i] })
       else {
@@ -249,6 +275,17 @@ function sperateColorCode (text) {
   }
 
   return letters
+}
+
+// Get Newline amount
+function getNewlineAmount (text) {
+  let amount = 0
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === '\n') amount++
+  }
+
+  return amount
 }
 
 // Layout

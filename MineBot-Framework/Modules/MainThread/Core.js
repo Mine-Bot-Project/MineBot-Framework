@@ -30,12 +30,12 @@ module.exports = class {
     this.ClusterManager = new ClusterManager(this)
     this.WorkerManager = new WorkerManager(this)
 
-    this.Plugin = new PluginManager(this)
+    this.PluginManager = new PluginManager(this)
     this.CLI = new CLI(this)
 
     this.Log.add('info', `Framework Version: ${info.version}`)
 
-    fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((item) => this.Plugin.addPlugin(require(path.resolve(__dirname, `../../Plugins/${item}`))))
+    fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((item) => this.PluginManager.addPlugin(require(path.resolve(__dirname, `../../Plugins/${item}`))))
   }
 
   get dataPath () {return this.#dataPath}
@@ -48,7 +48,7 @@ module.exports = class {
     if (this.#state === 'idle') {
       this.Log.add('running', 'Starting The Bot')
 
-      this.Plugin.loadPlugins()
+      this.PluginManager.loadPlugins()
 
       this.TranslationManager.load()
       await Promise.all([
