@@ -1,6 +1,6 @@
 const path = require('path')
 
-const MineBot = require('../../MineBot-Framework/API')
+const MineBot = require('../../Minebot-Framework/API')
 
 require('dotenv').config()
 

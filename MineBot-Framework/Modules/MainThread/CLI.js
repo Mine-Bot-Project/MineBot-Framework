@@ -3,7 +3,9 @@ const wcwidth = require('wcwidth')
 // Command Line Interface
 module.exports = class {
   #commands = {
-    'stop': { parameters: [], flags: [{ name: '-ds', description: 'Do not save the Database' }], description: 'Stop The Bot'}
+    'stop': { parameters: [], flags: [{ name: '-ds', description: 'Do not save the Database' }], description: 'Stop The Bot', callback: () => {
+      process.exit()
+    }}
   }
 
   #commandsSuggestion = []
@@ -17,7 +19,7 @@ module.exports = class {
       let longestLength = 0
 
       this.#commandsSuggestion.forEach((item) => {
-        let string = `${item}${(this.#commands[item].parameters.length > 0) ? this.#commands[item].parameters.join(' ') : ''}`
+        let string = `${item}${(this.#commands[item].parameters.length > 0) ? ` ${this.#commands[item].parameters.join(' ')}` : ''}`
 
         if (wcwidth(string) > longestLength) longestLength = wcwidth(string)
 
@@ -29,7 +31,7 @@ module.exports = class {
       let lines = []
 
       this.#commandsSuggestion.forEach((item) => {
-        let string = `${item}${(this.#commands[item].parameters.length > 0) ? this.#commands[item].parameters.join(' ') : ''}`
+        let string = `${item}${(this.#commands[item].parameters.length > 0) ? ` ${this.#commands[item].parameters.join(' ')}` : ''}`
 
         lines.push(`${string}${' '.repeat(longestLength-wcwidth(string))} | ${this.#commands[item].description}`)
 
@@ -43,8 +45,8 @@ module.exports = class {
 
     this.DynamicCLI.listen('input', (data) => {
       if (data.toString('hex') === '09') {
-        if (this.#commandsSuggestion.length > 0) this.input = this.#commandsSuggestion[0]
-        
+        if (this.#commandsSuggestion.length > 0) this.DynamicCLI.input = `${this.#commandsSuggestion[0]} `
+        else this.DynamicCLI.input = ''
       } else {
         this.#getCommandsSuggestion(this.DynamicCLI.input)
 
@@ -52,7 +54,34 @@ module.exports = class {
       }
     })
 
+    this.DynamicCLI.listen('enter', (data) => {
+      let command = parseCommand(data)
+
+      this.DynamicCLI.switchPage('Logs')
+
+      if (this.#commands[command.name] === undefined) Core.Log.add('error', `Command Not Found: ${command.name}`)
+      else this.#commands[command.name].callback(command.parameters, command.flags)
+      
+      this.DynamicCLI.input = ''
+
+      this.#getCommandsSuggestion('')
+    })
+
     this.#getCommandsSuggestion('')
+  }
+
+  // Add Command
+  addCommand (name, parameters, flags, description, callback) {
+    if (this.#commands[name] !== undefined) throw new Error(`Command Named "${name}" Already Exist`)
+
+    if (name.includes(' ')) throw new Error(`Command Name Cannot Contain Spaces`)
+
+    this.#commands[name] = {
+      parameters: (parameters === undefined) ? [] : parameters,
+      flags: (flags === undefined) ? [] : flags,
+      description,
+      callback
+    }
   }
 
   // Get Command Suggestion
@@ -68,3 +97,18 @@ module.exports = class {
 const { DynamicCliBuilder } = require('../Tools/DynamicCliBuilder')
 
 const Log = require('./Log')
+
+// Parse Command
+function parseCommand (text) {
+  let data = { name: undefined, parameters: [], flags: [] }
+
+  text.split(' ').forEach((item) => {
+    if (item[0] === '-') data.flags.push(item)
+    else {
+      if (data.name === undefined) data.name = item
+      else command.parameters.push(item)
+    }
+  })
+
+  return data
+}
