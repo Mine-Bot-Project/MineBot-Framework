@@ -3,7 +3,7 @@ const wcwidth = require('wcwidth')
 // Command Line Interface
 module.exports = class {
   #commands = {
-    'stop': { parameters: [], flags: [{ name: '-ds', description: 'Do not save the Database' }], description: 'Stop The Bot', callback: () => {
+    'stop': { parameters: [], flags: [{ name: '-ds', description: 'Do not save the database' }], description: 'Stop the bot', callback: () => {
       process.exit()
     }}
   }
@@ -70,6 +70,8 @@ module.exports = class {
     this.#getCommandsSuggestion('')
   }
 
+  get commands () {return Object.keys(this.#commands)}
+
   // Add Command
   addCommand (name, parameters, flags, description, callback) {
     if (this.#commands[name] !== undefined) throw new Error(`Command Named "${name}" Already Exist`)
@@ -82,6 +84,13 @@ module.exports = class {
       description,
       callback
     }
+  }
+
+  // Remove Command
+  removeCommand (name) {
+    if (this.#commands[name] === undefined) throw new Error(`Command Named "${name}" Not Found`)
+
+    delete this.#commands[name]
   }
 
   // Get Command Suggestion
