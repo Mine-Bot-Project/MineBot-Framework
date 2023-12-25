@@ -42,3 +42,12 @@ new Bot(<dataPath>, <options>) // 創建一個機器人
 .addPlugin(<Plugin>) // 添加插件
 ```
 * `Plugin <class>` | 要添加的插件，必須為一個 [Constructor Class](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Classes/constructor) [必要]
+
+# Core
+```js
+const { Core } = require('./MineBot-Framework/API.js')
+
+new Core(<dataPath>, <options>) // 使用 Core 創建一個機器人
+```
+> [!WARNING]
+> 如果你只是想要用 MineBot-Framework 製作一個機器人，並且沒有打算自己寫功能，我們建議你直接使用 [Bot](#bot) API。如果你想要自己寫功能，我們建議你使用插件系統。
