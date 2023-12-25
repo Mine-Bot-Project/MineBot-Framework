@@ -16,8 +16,8 @@ bot.start()                                 // 啟動機器人
 
 ## 目錄
 * [Bot](#bot)
-  * [start](#start)
-  * [addPlugin](#addPlugin)
+  * [start()](#start)
+  * [addPlugin()](#addplugin)
 * [Core](#core)
 
 # Bot
