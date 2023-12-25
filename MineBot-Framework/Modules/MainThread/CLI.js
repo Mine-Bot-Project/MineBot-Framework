@@ -46,7 +46,7 @@ module.exports = class {
       let threads = []
 
       Object.keys(Core.WorkerManager.workers).forEach((id) => {
-        threads.push(`| [${id}] Delay: ${getNumberWithTimeUnit(Core.WorkerManager.workers[id].info.delay)}`)
+        threads.push(`| [${id}] Delay: ${getNumberWithTimeUnit(Core.WorkerManager.workers[id].info.delay)} - Last Message: ${Core.WorkerManager.workers[id].info.lastMessage}`)
       })
 
       return [
