@@ -22,18 +22,18 @@ module.exports = class {
 
     if (typeof options.name !== 'string') throw new Error(`Parameter "options.name" Must Be A <string>`)
     if (typeof options.nameLocalizations !== 'object') throw new Error(`Parameter "options.nameLocalizations" Must Be A <object>`)
-    Object.keys(options.nameLocalizations).forEach((item) => {
-      if (!supportedLocales.includes(item)) throw new Error(`Unsupported Locale "${item}" (options.nameLocalizations)`)
+    Object.keys(options.nameLocalizations).forEach((key) => {
+      if (!supportedLocales.includes(key)) throw new Error(`Unsupported Locale "${key}" (options.nameLocalizations)`)
     })
     if (typeof options.description !== 'string') throw new Error(`Parameter "options.description" Must Be A <string>`)
     if (typeof options.descriptionLocalizations !== 'object') throw new Error(`Parameter "options.descriptionLocalizations" Must Be A <object>`)
-    Object.keys(options.descriptionLocalizations).forEach((item) => {
-      if (!supportedLocales.includes(item)) throw new Error(`Unsupported Locale "${item}" (options.descriptionLocalizations)`)
+    Object.keys(options.descriptionLocalizations).forEach((key) => {
+      if (!supportedLocales.includes(key)) throw new Error(`Unsupported Locale "${key}" (options.descriptionLocalizations)`)
     })
     if (!Array.isArray(options.options)) throw new Error(`Parameter "options.options" Must Be A <array>`)
 
-    options.forEach((item, index) => {
-      if (typeof item !== 'object') throw new Error(`Parameter "options[${index}]" Must Be A <object>`)
+    options.options.forEach((option, index) => {
+      if (typeof key !== 'object') throw new Error(`Parameter "options.options[${index}]" Must Be A <object>`)
 
       item = mergeObject({
         type: undefined,
@@ -45,24 +45,24 @@ module.exports = class {
         required: false
       }, item)
 
-      if (!Object.keys(optionTypes).includes(item.type)) throw new Error(`Parameter "options.options[${index}].type" Must Be ${Object.keys(optionTypes).map((item2) => `"${item2}"`).join(' Or ')}`)
-      if (typeof item.name !== 'string') throw new Error(`Parameter "options.options[${index}].name" Must Be A <string>`)
-      if (typeof item.nameLocalizations !== 'object') throw new Error(`Parameter "options.options[${index}].nameLocalizations" Must Be A <object>`)
-      Object.keys(item.nameLocalizations).forEach((item2) => {
-        if (!supportedLocales.includes(item2)) throw new Error(`Unsupported Locale "${item2}" (options.options[${index}].nameLocalizations)`)
+      if (!Object.keys(optionTypes).includes(option.type)) throw new Error(`Parameter "options.options[${index}].type" Must Be ${Object.keys(optionTypes).map((item2) => `"${item2}"`).join(' Or ')}`)
+      if (typeof option.name !== 'string') throw new Error(`Parameter "options.options[${index}].name" Must Be A <string>`)
+      if (typeof option.nameLocalizations !== 'object') throw new Error(`Parameter "options.options[${index}].nameLocalizations" Must Be A <object>`)
+      Object.keys(option.nameLocalizations).forEach((key) => {
+        if (!supportedLocales.includes(key)) throw new Error(`Unsupported Locale "${key}" (options.options[${index}].nameLocalizations)`)
       })
-      if (typeof item.description !== 'string') throw new Error(`Parameter "options.options[${index}].description" Must Be A <string>`)
-      if (typeof item.descriptionLocalizations !== 'object') throw new Error(`Parameter "options.options[${index}].descriptionLocalizations" Must Be A <object>`)
-      Object.keys(item.descriptionLocalizations).forEach((item2) => {
-        if (!supportedLocales.includes(item2)) throw new Error(`Unsupported Locale "${item2}" (options.options[${index}].descriptionLocalizations)`)
+      if (typeof option.description !== 'string') throw new Error(`Parameter "options.options[${index}].description" Must Be A <string>`)
+      if (typeof option.descriptionLocalizations !== 'object') throw new Error(`Parameter "options.options[${index}].descriptionLocalizations" Must Be A <object>`)
+      Object.keys(option.descriptionLocalizations).forEach((key) => {
+        if (!supportedLocales.includes(key)) throw new Error(`Unsupported Locale "${key}" (options.options[${index}].descriptionLocalizations)`)
       })
-      if (typeof item.autocomplete !== 'boolean') throw new Error(`Parameter "options.options[${index}].autocomplete" Must Be A <boolean>`)
-      if (typeof item.required !== 'boolean') throw new Error(`Parameter "options.options[${index}].required" Must Be A <boolean>`)
+      if (typeof option.autocomplete !== 'boolean') throw new Error(`Parameter "options.options[${index}].autocomplete" Must Be A <boolean>`)
+      if (typeof option.required !== 'boolean') throw new Error(`Parameter "options.options[${index}].required" Must Be A <boolean>`)
     })
 
     if (this.#checkCommandName(options.name)) throw new Error(`Command Named "${options.name}" Already Exist`)
-    Object.keys(options.nameLocalizations).forEach((item) => {
-      if (this.#checkCommandName(options.nameLocalizations[item])) throw new Error(`Command Named "${options.nameLocalizations[item]}"(${item}) Already Exist`)
+    Object.keys(options.nameLocalizations).forEach((key) => {
+      if (this.#checkCommandName(options.nameLocalizations[key])) throw new Error(`Command Named "${options.nameLocalizations[key]}"(${key}) Already Exist`)
     })
 
     commands.push({
@@ -98,11 +98,11 @@ module.exports = class {
   }
 
   #checkCommandName (name) {
-    for (let item of commands) {
-      if (item.name === name) return true
+    for (let command of this.#commands) {
+      if (command.name === name) return true
 
-      for (let item2 of Object.keys(item.name_localizations)) {
-        if (item.name_localizations[item2] === name) return true
+      for (let locale of Object.keys(command.name_localizations)) {
+        if (command.name_localizations[locale] === name) return true
       }
     }
 

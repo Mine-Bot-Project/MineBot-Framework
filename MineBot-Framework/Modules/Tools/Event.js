@@ -2,9 +2,7 @@
 module.exports = class {
   #events = []
 
-  constructor () {
-    
-  }
+  constructor () {}
 
   // Listen To Event
   listen (target, name, callback) {

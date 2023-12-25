@@ -7,6 +7,7 @@ module.exports = class {
   #options
 
   #state = 'idle'
+  #frameworkInfo
   #info
 
   constructor (dataPath, options) {
@@ -23,7 +24,10 @@ module.exports = class {
 
     this.checkFiles()
 
+    this.#frameworkInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../Info.json')))
     this.#info = JSON.parse(fs.readFileSync(path.resolve(dataPath, 'Info.json')))
+
+    this.Timer = new Timer()
 
     this.TranslationManager = new TranslationManager(this)
     this.SlashCommandManager = new SlashCommandManager(this)
@@ -31,16 +35,18 @@ module.exports = class {
     this.WorkerManager = new WorkerManager(this)
 
     this.PluginManager = new PluginManager(this)
+
     this.CLI = new CLI(this)
 
     this.Log.add('info', `Framework Version: ${info.version}`)
 
-    fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((item) => this.PluginManager.addPlugin(require(path.resolve(__dirname, `../../Plugins/${item}`))))
+    fs.readdirSync(path.resolve(__dirname, '../../Plugins')).forEach((plugin) => this.PluginManager.addPlugin(require(path.resolve(__dirname, `../../Plugins/${plugin}`))))
   }
 
   get dataPath () {return this.#dataPath}
   get options () {return this.#options}
   get state () {return this.#state}
+  get frameworkInfo () {return this.#frameworkInfo}
   get info () {return this.#info}
 
   // Start The Bot
@@ -66,6 +72,8 @@ module.exports = class {
     if (!fs.existsSync(path.resolve(this.#dataPath, 'Servers'))) fs.mkdirSync(path.resolve(this.#dataPath, 'Servers'))
   }
 }
+
+const Timer = require('../Tools/Timer')
 
 const SlashCommandManager = require('./SlashCommandManager')
 const TranslationManager = require('./TranslationManager')

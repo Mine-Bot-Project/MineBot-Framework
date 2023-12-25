@@ -8,11 +8,11 @@ module.exports = () => {
 
   let missingPackages = []
   
-  packages.forEach((item) => {
+  packages.forEach((package) => {
     try {
-      require(item)
+      require(package)
     } catch (error) {
-      missingPackages.push(item)
+      missingPackages.push(package)
     }
   })
 

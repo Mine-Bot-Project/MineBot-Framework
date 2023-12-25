@@ -1,11 +1,11 @@
 // Merge Object
 module.exports = (target, object) => {
-  Object.keys(object).forEach((item) => {
-    if (typeof object[item] === 'object') {
-      if (target[item] !== 'object') target[item] = {}
+  Object.keys(object).forEach((key) => {
+    if (typeof object[key] === 'object') {
+      if (target[key] !== 'object') target[key] = {}
 
-      module.exports(target[item], object[item])
-    } else target[item] = object[item]
+      module.exports(target[key], object[key])
+    } else target[key] = object[key]
   })
 
   return object

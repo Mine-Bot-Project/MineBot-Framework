@@ -9,15 +9,21 @@ module.exports = class {
 
     this.workers = {}
     this.functions = {}
+
+    Core.Timer.createInterval(1000, () => {
+      Object.keys(this.workers).forEach((id) => {
+        console.log(this.workers[id].worker.send({ type: 'getDelay', id, startTime: performance.now() }))
+      })
+    })
   }
 
   // Add Worker
   addWorker (Worker) {
     let id = generateID(5, Object.keys(this.workers))
 
-    this.workers[id] = Worker
+    this.workers[id] = { info: { delay: 0 }, worker: Worker }
 
-    this.Event.listen(this.workers[id], 'message', (msg) => this.#messageHandler(msg))
+    this.Event.listen(this.workers[id].worker, 'message', (msg) => this.#messageHandler(msg))
   }
 
   // Register Function (Functions that can be called from other worker thread)
@@ -29,7 +35,9 @@ module.exports = class {
 
   // Message Handler
   async #messageHandler (msg) {
-    if (msg.type === 'callFunction') {
+    if (msg.type === 'setDelay') {
+      this.workers[msg.id].info.delay = Math.trunc(performance.now()-msg.startTime)
+    } else if (msg.type === 'callFunction') {
       if (this.functions[msg.name] === undefined) msg.reply({ error: true, content: 'Function Not Found' })
       else {
         try {

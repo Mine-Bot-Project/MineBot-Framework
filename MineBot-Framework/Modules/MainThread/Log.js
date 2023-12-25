@@ -130,16 +130,16 @@ module.exports = class {
 
     let lines = []
 
-    this.lines.forEach((item) => {
-      if (item.substring(0, 7) === '<State>') {
-        let id = item.replace('<State>', '')
+    this.lines.forEach((line) => {
+      if (line.substring(0, 7) === '<State>') {
+        let id = line.replace('<State>', '')
 
         lines.push(`${FontColor[this.states[id].color]}[${this.states[id].title}]: ${this.states[id].content}`)
 
-        Object.keys(this.states[id].children).forEach((item) => {
-          lines.push(`${FontColor.white}｜${FontColor[this.states[id].children[item].color]}[${this.states[id].children[item].title}]: ${this.states[id].children[item].content}`)
+        Object.keys(this.states[id].children).forEach((child) => {
+          lines.push(`${FontColor.white}｜${FontColor[this.states[id].children[child].color]}[${this.states[id].children[child].title}]: ${this.states[id].children[child].content}`)
         })
-      } else lines.push(item)
+      } else lines.push(line)
     })
 
     return lines

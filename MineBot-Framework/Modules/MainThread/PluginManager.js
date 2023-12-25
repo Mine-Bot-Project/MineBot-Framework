@@ -32,7 +32,7 @@ module.exports = class {
 
       let start = performance.now()
 
-      Object.keys(this.plugins).forEach((item) => this.plugins[item].init(this.#Core))
+      Object.keys(this.plugins).forEach((id) => this.plugins[id].init(this.#Core))
 
       this.#Core.Log.finishState(state, 'green', `Successfully Loaded Plugins (Time: ${parseInt((performance.now()-start)/60000).toFixed(1)}s)`)
     }

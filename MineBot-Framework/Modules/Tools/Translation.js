@@ -13,8 +13,8 @@ module.exports = class {
   load (languages) {
     this.#data = {}
 
-    languages.forEach((item) => {
-      this.#data[item] = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../../Data/Languages/${item}.json`)))
+    languages.forEach((language) => {
+      this.#data[language] = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../../Data/Languages/${language}.json`)))
     })
   }
 
@@ -22,10 +22,10 @@ module.exports = class {
   get (path, language) {
     let target = this.#data[language].content
 
-    path.split('>>').forEach((item) => {
+    path.split('>>').forEach((key) => {
       if (typeof target !== 'object') throw new Error(`Translation Not Found: ${path} (${language})`)
 
-      target = target[item]
+      target = target[key]
     })
 
     if (typeof target !== 'string') throw new Error(`Translation Not Found: ${path} (${language})`)

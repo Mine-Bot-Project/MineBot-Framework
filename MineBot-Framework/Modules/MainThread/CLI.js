@@ -18,29 +18,46 @@ module.exports = class {
     this.DynamicCLI.addPage('Commands', 'Commands', () => {
       let longestLength = 0
 
-      this.#commandsSuggestion.forEach((item) => {
-        let string = `${item}${(this.#commands[item].parameters.length > 0) ? ` ${this.#commands[item].parameters.join(' ')}` : ''}`
+      this.#commandsSuggestion.forEach((commandName) => {
+        let string = `${commandName}${(this.#commands[commandName].parameters.length > 0) ? ` ${this.#commands[commandName].parameters.join(' ')}` : ''}`
 
         if (wcwidth(string) > longestLength) longestLength = wcwidth(string)
 
-        this.#commands[item].flags.forEach((item2) => {
-          if (wcwidth(`| ${item2.name}`) > longestLength) longestLength = wcwidth(`| ${item2.name}`)
+        this.#commands[commandName].flags.forEach((flag) => {
+          if (wcwidth(`| ${flag.name}`) > longestLength) longestLength = wcwidth(`| ${flag.name}`)
         })
       })
 
       let lines = []
 
-      this.#commandsSuggestion.forEach((item) => {
-        let string = `${item}${(this.#commands[item].parameters.length > 0) ? ` ${this.#commands[item].parameters.join(' ')}` : ''}`
+      this.#commandsSuggestion.forEach((commandName) => {
+        let string = `${commandName}${(this.#commands[commandName].parameters.length > 0) ? ` ${this.#commands[commandName].parameters.join(' ')}` : ''}`
 
-        lines.push(`${string}${' '.repeat(longestLength-wcwidth(string))} | ${this.#commands[item].description}`)
+        lines.push(`${string}${' '.repeat(longestLength-wcwidth(string))} | ${this.#commands[commandName].description}`)
 
-        this.#commands[item].flags.forEach((item) => {
-          lines.push(`| ${item.name}${' '.repeat(longestLength-wcwidth(`| ${item.name}`))} | ${item.description}`)
+        this.#commands[commandName].flags.forEach((flag) => {
+          lines.push(`| ${flag.name}${' '.repeat(longestLength-wcwidth(`| ${flag.name}`))} | ${flag.description}`)
         })
       })
 
       return lines
+    })
+    this.DynamicCLI.addPage('System', 'System', () => {
+      let threads = []
+
+      Object.keys(Core.WorkerManager.workers).forEach((id) => {
+        threads.push(`| [${id}] Delay: ${getNumberWithTimeUnit(Core.WorkerManager.workers[id].info.delay)}`)
+      })
+
+      return [
+        `Uptime: ${getNumberWithTimeUnit(performance.now())}`,
+        '',
+        'Info:',
+        `| Framework Version: ${Core.frameworkInfo.version}`,
+        `| Plugins: ${Object.keys(Core.PluginManager.plugins).length}`,
+        '',
+        `Threads: (${Object.keys(Core.WorkerManager.workers).length})`
+      ].concat(threads)
     })
 
     this.DynamicCLI.listen('input', (data) => {
@@ -103,6 +120,7 @@ module.exports = class {
   }
 }
 
+const getNumberWithTimeUnit = require('../Tools/GetNumberWithTimeUnit')
 const { DynamicCliBuilder } = require('../Tools/DynamicCliBuilder')
 
 const Log = require('./Log')
@@ -111,11 +129,11 @@ const Log = require('./Log')
 function parseCommand (text) {
   let data = { name: undefined, parameters: [], flags: [] }
 
-  text.split(' ').forEach((item) => {
-    if (item[0] === '-') data.flags.push(item)
+  text.split(' ').forEach((chunk) => {
+    if (chunk[0] === '-') data.flags.push(chunk)
     else {
-      if (data.name === undefined) data.name = item
-      else command.parameters.push(item)
+      if (data.name === undefined) data.name = chunk
+      else command.parameters.push(chunk)
     }
   })
 
