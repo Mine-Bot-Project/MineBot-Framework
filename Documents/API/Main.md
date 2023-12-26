@@ -1,5 +1,5 @@
 # API
-MineBot-Framework 有兩個主要的 API，分別為 [Bot](./Bot.md) 和 [Core](./Core.md)。
+MineBot-Framework 有兩個主要的 API，分別為 [Bot](./Bot.md) 和 [Core](./Core.md)，[Core](./Core.md) 包含了整個 MineBot-Framework 的功能，但有些操作可能會導致整個系統無法正常運作，所以除非你在做插件，不然我們不建議你使用該 API。
 
 ## Bot
 此 API 提供給一般開發者使用，該 API 只會暴露 Core 的部分功能。
