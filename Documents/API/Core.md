@@ -1,3 +1,13 @@
+# 目錄
+* [Core](#core)
+  * [dataPath](#datapath)
+  * [options](#options)
+  * [state](#state)
+  * [frameworkInfo](#frameworkinfo)
+  * [info](#info)
+  * [start()](#start)
+  * [checkFiles()](#checkfiles)
+
 # Core
 > [!WARNING]
 > 如果你只是想要用 MineBot-Framework 製作一個機器人，並且沒有打算自己寫功能，我們建議你直接使用 [Bot API](#bot)。如果你想要自己寫功能，我們建議你使用插件系統。
