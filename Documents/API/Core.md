@@ -5,8 +5,18 @@
   * [state](#state)
   * [frameworkInfo](#frameworkinfo)
   * [info](#info)
+<br><br>
   * [start()](#start)
   * [checkFiles()](#checkfiles)
+<br><br>
+  * [Timer](#timer)
+  * [TranslationManager](#translationmanager)
+  * [SlashCommandManager](#slashcommandmanager)
+  * [ClusterManager](#clustermanager)
+  * [WorkerManager](#workermanager)
+  * [PluginManager](#pluginmanager)
+  * [CLI](#cli)
+  * [Log](#log)
 
 # Core
 > [!WARNING]
