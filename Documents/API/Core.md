@@ -12,7 +12,7 @@
   * [TranslationManager](#translationmanager)
   * [SlashCommandManager](#slashcommandmanager)
   * [ClusterManager](#clustermanager)
-  * [WorkerManager](#workermanager)
+  * [WorkerManager](#workermanager) (Planning to merge into ClusterManager)
   * [PluginManager](#pluginmanager)
   * [CLI](#cli)
   * [Log](#log)
@@ -45,11 +45,13 @@ console.log(core.dataPath)                 // 輸出機器人的資料路徑
 ```js
 .start() // 啟動機器人
 ```
+> 回傳 `<undefined>`
 
 ## checkFiles()
 ```js
 .checkFiles() // 檢查機器人的資料檔案
 ```
+> 回傳 `<undefined>`
 
 # Timer
 ```js
@@ -62,6 +64,7 @@ console.log(core.dataPath)                 // 輸出機器人的資料路徑
 ```
 * `interval <number>` | 每次重複的間隔 (毫秒)
 * `callback <function>` | 重複時呼叫的函數
+> 回傳 `計時器的 ID <string>`
 
 ## createLoop()
 ```js
@@ -71,3 +74,11 @@ console.log(core.dataPath)                 // 輸出機器人的資料路徑
 * `times <number>` | 重複的次數
 * `callback <function>` | 重複時呼叫的函數
 * `callback2 <function>` | 重複完時呼叫的函數
+> 回傳 `計時器的 ID <string>`
+
+## deleteTimer()
+```js
+.Timer.deleteTimer(<id>) // 刪除計時器
+```
+* `id <string>` | 要刪出的計時器的 ID
+> 回傳 `<undefined>`
