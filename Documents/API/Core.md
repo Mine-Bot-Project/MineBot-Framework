@@ -1,7 +1,5 @@
 # 目錄
 * [Core](#core)
-  * [Getters](#getters)
-<br><br>
   * [start()](#start)
   * [checkFiles()](#checkfiles)
 <br><br>
