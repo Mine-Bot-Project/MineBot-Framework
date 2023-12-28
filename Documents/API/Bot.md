@@ -15,13 +15,15 @@ new Bot(<dataPath>, <options>) // 創建一個機器人
   * `clientID <string>` | 機器人的 Client ID [必要]
   * `clusters <number>` | 機器人的集群數
 
-## start
+## start()
 ```js
 .start() // 創建一個機器人
 ```
+> 返回 `<undefined>`
 
-## addPlugin
+## addPlugin()
 ```js
 .addPlugin(<Plugin>) // 添加插件
 ```
 * `Plugin <class>` | 要添加的插件，必須為一個 [Constructor Class](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Classes/constructor) [必要]
+> 返回 `<undefined>`
