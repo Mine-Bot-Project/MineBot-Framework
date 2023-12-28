@@ -10,7 +10,6 @@
   * [TranslationManager](#translationmanager)
   * [SlashCommandManager](#slashcommandmanager)
   * [ClusterManager](#clustermanager)
-  * [WorkerManager](#workermanager) (Planning to merge into ClusterManager)
   * [PluginManager](#pluginmanager)
   * [CLI](#cli)
   * [Log](#log)
