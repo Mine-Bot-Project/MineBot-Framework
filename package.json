@@ -11,11 +11,24 @@
     "type": "git",
     "url": "git+https://github.com/Mine-Bot-Project/MineBot-Framework.git"
   },
-  "keywords": ["minebot", "mine", "bot", "mining", "miner", "discord"],
+  "keywords": [
+    "minebot",
+    "mine",
+    "bot",
+    "mining",
+    "miner",
+    "discord"
+  ],
   "author": "LmanTW, IceBrick",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Mine-Bot-Project/MineBot-Framework/issues"
   },
-  "homepage": "https://github.com/Mine-Bot-Project/MineBot-Framework"
+  "homepage": "https://github.com/Mine-Bot-Project/MineBot-Framework",
+  "dependencies": {
+    "discord-hybrid-sharding": "^2.1.4",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "wcwidth": "^1.0.1"
+  }
 }

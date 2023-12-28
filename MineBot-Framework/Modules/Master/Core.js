@@ -32,7 +32,6 @@ module.exports = class {
     this.TranslationManager = new TranslationManager(this)
     this.SlashCommandManager = new SlashCommandManager(this)
     this.ClusterManager = new ClusterManager(this)
-    this.WorkerManager = new WorkerManager(this)
 
     this.PluginManager = new PluginManager(this)
 
@@ -79,7 +78,6 @@ const SlashCommandManager = require('./SlashCommandManager')
 const TranslationManager = require('./TranslationManager')
 const ClusterManager = require('./ClusterManager')
 const PluginManager = require('./PluginManager')
-const WorkerManager = require('./WorkerManager')
 const CLI = require('./CLI')
 
 const info = require('../../Info.json')

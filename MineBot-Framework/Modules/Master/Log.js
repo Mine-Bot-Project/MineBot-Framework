@@ -3,11 +3,11 @@ const wcwidth = require('wcwidth')
 //Log
 module.exports = class {
   constructor (Core) {
-    Core.WorkerManager.registerFunction('Log.add', (type, content) => this.add(type, content))
-    Core.WorkerManager.registerFunction('Log.addSpace', () => this.addSpace())
-    Core.WorkerManager.registerFunction('Log.addState', (color, title, content, parentID) => this.addState(color, title, content, parentID))
-    Core.WorkerManager.registerFunction('Log.changeState', (id, color, content) => this.changeState(id, color, content))
-    Core.WorkerManager.registerFunction('Log.finishState', (id, color, content) => this.finishState(id, color, content))
+    Core.ClusterManager.registerFunction('Log.add', (type, content) => this.add(type, content))
+    Core.ClusterManager.registerFunction('Log.addSpace', () => this.addSpace())
+    Core.ClusterManager.registerFunction('Log.addState', (color, title, content, parentID) => this.addState(color, title, content, parentID))
+    Core.ClusterManager.registerFunction('Log.changeState', (id, color, content) => this.changeState(id, color, content))
+    Core.ClusterManager.registerFunction('Log.finishState', (id, color, content) => this.finishState(id, color, content))
 
     this.lines = []
     this.states = {}

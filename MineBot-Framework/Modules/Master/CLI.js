@@ -45,8 +45,8 @@ module.exports = class {
     this.DynamicCLI.addPage('System', 'System', () => {
       let threads = []
 
-      Object.keys(Core.WorkerManager.workers).forEach((id) => {
-        threads.push(`| [${id}] Delay: ${getNumberWithTimeUnit(Core.WorkerManager.workers[id].info.delay)} - Last Message: ${Core.WorkerManager.workers[id].info.lastMessage}`)
+      Object.keys(Core.ClusterManager.clusters).forEach((id) => {
+        threads.push(`| [${id}] Delay: ${getNumberWithTimeUnit(Core.ClusterManager.clusters[id].info.delay)} - Last Message: ${Core.ClusterManager.clusters[id].info.lastMessage}`)
       })
 
       return [
@@ -56,7 +56,7 @@ module.exports = class {
         `| Framework Version: ${Core.frameworkInfo.version}`,
         `| Plugins: ${Object.keys(Core.PluginManager.plugins).length}`,
         '',
-        `Threads: (${Object.keys(Core.WorkerManager.workers).length})`
+        `Clusters: (${Object.keys(Core.ClusterManager.clusters).length})`
       ].concat(threads)
     })
 

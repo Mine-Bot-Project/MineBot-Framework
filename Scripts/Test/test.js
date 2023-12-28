@@ -1,10 +1,10 @@
 const path = require('path')
 
-const MineBot = require('../../Minebot-Framework/API')
+const { Bot } = require('../../Minebot-Framework/API')
 
 require('dotenv').config()
 
-let bot = new MineBot(path.resolve(__dirname, 'Data'), {
+let bot = new Bot(path.resolve(__dirname, 'Data'), {
   token: process.env.TOKEN,
   clientID: '1174924220657049630',
   
